@@ -1,0 +1,12 @@
+# Crush runtime artifacts (keep skills/ and docs)
+.agents/crush.db
+.agents/crush.db-shm
+.agents/crush.db-wal
+.agents/logs/
+.agents/init
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
