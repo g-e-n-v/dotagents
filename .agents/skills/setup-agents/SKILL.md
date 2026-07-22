@@ -22,11 +22,11 @@ Create or refactor a repository's AI agent instructions using **progressive disc
 ## Workflow
 
 1. **Assess the repo.** Determine if this is a fresh setup or a refactor of an existing bloated `AGENTS.md`.
-2. **Run the scaffold script.** Execute `scripts/init-agents.ts` from the repo root. In default mode it creates a minimal `AGENTS.md` with TODO placeholders plus a `docs/` folder with stub files for the five common domains. With `--refactor` it reads an existing `AGENTS.md`, classifies lines by keyword into `docs/` stubs, backs up the original to `AGENTS.md.bak`, and rewrites the root with essentials plus links.
+2. **Run the scaffold script.** Execute `scripts/init-agents.ts` from the repo root. In default mode it creates a minimal `AGENTS.md` with TODO placeholders and an empty `docs/` directory. With `--refactor` it reads an existing `AGENTS.md`, classifies lines by keyword into `docs/` files, backs up the original to `AGENTS.md.bak`, and rewrites the root with essentials plus a domain-guidance table.
 3. **Fill in the root essentials.** Edit `AGENTS.md` to provide:
    - Package manager (only if not npm; or note `corepack`)
    - Non-standard build/typecheck/test commands
-4. **Populate only the relevant `docs/` files.** Delete the stubs that don't apply and fill in the ones that do. Each `docs/*.md` is a progressive-disclosure target.
+4. **Create `docs/` files for relevant domains.** Create a `docs/*.md` file for each domain that applies, fill in real conventions, and add a row to the Domain Guidance table in `AGENTS.md`. Each `docs/*.md` is a progressive-disclosure target.
 5. **Audit the result.** Run `scripts/audit-agents.ts` to flag bloat, broken links, stale paths, contradictions, and oversized files.
 
 ## What Belongs Where
@@ -48,13 +48,13 @@ Use this decision table when filling in files:
 
 Read these only when working on that aspect of the setup:
 
-- **Detailed structure, per-domain templates, and custom domains**: See `references/structure.md`
+- **Detailed structure, per-domain guidance, and custom domains**: See `references/structure.md`
 - **Refactoring an existing bloated AGENTS.md (classification rules, contradictions, stale content)**: See `references/refactor.md`
 - **Audit checklist, severity levels, and fix recipes**: See `references/audit.md`
 
 ## Scripts
 
-- **`scripts/init-agents.ts`** - Scaffold a minimal `AGENTS.md` and `docs/` stubs. Run from the repo root. Flags: `--refactor` to import content from an existing `AGENTS.md` instead of starting fresh.
+- **`scripts/init-agents.ts`** - Scaffold a minimal `AGENTS.md` with a domain-guidance table and an empty `docs/` directory. Run from the repo root. Flags: `--refactor` to import content from an existing `AGENTS.md` instead of starting fresh.
 - **`scripts/audit-agents.ts`** - Scan `AGENTS.md` and `docs/` for bloat, contradictions, stale file-path references, broken links, orphans, and oversized files. Prints a report; non-zero exit on critical issues.
 
 Run with: `npx tsx <script-path>` from the repo root.
