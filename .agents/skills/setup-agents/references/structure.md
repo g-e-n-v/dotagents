@@ -4,12 +4,13 @@
 
 - [Target File Tree](#target-file-tree)
 - [Root AGENTS.md Template](#root-agentsmd-template)
-- [Per-Domain /docs Templates](#per-domain-docs-templates)
+- [Per-Domain docs/ Templates](#per-domain-docs-templates)
   - [typescript.md](#typescriptmd)
   - [testing.md](#testingmd)
   - [git.md](#gitmd)
   - [api.md](#apimd)
   - [architecture.md](#architecturemd)
+- [Adding Custom Domains](#adding-custom-domains)
 - [Linking Rules](#linking-rules)
 - [Size Budgets](#size-budgets)
 
@@ -30,7 +31,7 @@ Keep references one level deep from `AGENTS.md`. Do not nest deeper (e.g., `docs
 
 ## Root AGENTS.md Template
 
-The root file should stay under ~50 lines. It contains only the three essentials plus pointer lines to `/docs`.
+The root file should stay under ~50 lines. It contains only the three essentials plus pointer lines to `docs/`.
 
 ```markdown
 # AGENTS.md
@@ -54,11 +55,12 @@ The root file should stay under ~50 lines. It contains only the three essentials
 ```
 
 Notes:
+
 - Drop the "Domain Guidance" lines for stubs the user deleted.
-- Do not duplicate content from `/docs` in the root. Pointers only.
+- Do not duplicate content from `docs/` in the root. Pointers only.
 - No "always" / all-caps forcing. Conversational references.
 
-## Per-Domain /docs Templates
+## Per-Domain docs/ Templates
 
 Each file is a progressive-disclosure target. The agent reads it only when working in that domain. Keep each file focused and under the size budget.
 
@@ -172,18 +174,36 @@ Types: feat, fix, docs, refactor, test, chore, perf
 Hints, not paths. e.g. "Auth logic lives near the entry middleware" rather than "src/auth/middleware.ts".
 ```
 
+## Adding Custom Domains
+
+The five default domains cover most projects, but add more when a distinct area of the codebase has its own conventions. Common additions:
+
+| Domain             | Filename           | When to add                                             |
+| ------------------ | ------------------ | ------------------------------------------------------- |
+| Database/schema    | `docs/database.md` | ORM conventions, migration steps, schema patterns       |
+| Deployment         | `docs/deploy.md`   | Non-obvious deploy steps, environment requirements      |
+| Frontend UI        | `docs/frontend.md` | Component patterns, state management, styling approach  |
+| Linting/formatting | `docs/linting.md`  | Non-standard linter config, custom rules                |
+| Security           | `docs/security.md` | Security-critical rules, secrets handling, auth gotchas |
+
+When adding a custom domain:
+
+1. Create `docs/<domain>.md` with a focused template.
+2. Add a link line under "Domain Guidance" in `AGENTS.md`.
+3. Run the audit script to verify the link resolves and no orphans exist.
+
 ## Linking Rules
 
-- Every `/docs/*.md` file MUST be linked from `AGENTS.md` (or from another `/docs` file that is itself linked).
+- Every `docs/*.md` file MUST be linked from `AGENTS.md` (or from another `docs` file that is itself linked).
 - Every link in `AGENTS.md` MUST point to an existing file after the user prunes stubs.
 - Use relative paths: `docs/typescript.md`, not absolute URLs.
 - Keep links one level deep from the root. Avoid `docs/a/b.md`.
 
 ## Size Budgets
 
-| File | Soft limit | Hard limit |
-|---|---|---|
-| `AGENTS.md` | 50 lines | 100 lines |
-| Each `docs/*.md` | 150 lines | 300 lines |
+| File             | Soft limit | Hard limit |
+| ---------------- | ---------- | ---------- |
+| `AGENTS.md`      | 50 lines   | 100 lines  |
+| Each `docs/*.md` | 150 lines  | 300 lines  |
 
 If a file approaches the hard limit, split by sub-domain and add an index file in its place. The audit script flags files over the soft limit.

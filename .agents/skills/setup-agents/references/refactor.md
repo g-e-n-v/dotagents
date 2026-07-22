@@ -1,6 +1,6 @@
 # Refactoring a Bloated AGENTS.md
 
-Read this file when the user has an existing `AGENTS.md` that has grown too large and wants to split it into a minimal root plus `/docs` files.
+Read this file when the user has an existing `AGENTS.md` that has grown too large and wants to split it into a minimal root plus `docs/` files.
 
 ## Table of Contents
 
@@ -12,34 +12,34 @@ Read this file when the user has an existing `AGENTS.md` that has grown too larg
 
 ## Refactor Workflow
 
-1. **Back up.** Copy the existing `AGENTS.md` to `AGENTS.md.bak` before changes.
-2. **Run the scaffold script with `--refactor`.** It reads the existing `AGENTS.md`, splits it into the `/docs` stubs by keyword classification, and rewrites the root with the essentials plus links.
-3. **Review the split.** Open each generated `/docs/*.md` and verify the classification. Move misplaced lines manually.
+1. **Back up.** Copy the existing `AGENTS.md` to `AGENTS.md.bak` before changes. The `--refactor` flag does this automatically.
+2. **Run the scaffold script with `--refactor`.** It reads the existing `AGENTS.md`, splits it into the `docs/` stubs by keyword classification, and rewrites the root with the essentials plus links.
+3. **Review the split.** Open each generated `docs/*.md` and verify the classification. Move misplaced lines manually.
 4. **Resolve contradictions.** See below.
-5. **Prune.** Delete stubs that ended up empty or irrelevant.
+5. **Prune.** Delete stubs that ended up empty or irrelevant. Remove their link lines from `AGENTS.md`.
 6. **Audit.** Run `scripts/audit-agents.ts` and address flagged issues.
 
 ## Classification Rules
 
-The `--refactor` flag classifies each line/block of the existing file by keyword and routes it to a `/docs` stub:
+The `--refactor` flag classifies each line/block of the existing file by keyword and routes it to a `docs/` stub:
 
-| Keyword signals | Target file |
-|---|---|
-| `typescript`, `ts`, `const`, `let`, `interface`, `type`, `null`, `undefined` | `docs/typescript.md` |
-| `test`, `vitest`, `jest`, `mock`, `fixture`, `spec` | `docs/testing.md` |
-| `commit`, `branch`, `pr`, `pull request`, `merge`, `conventional` | `docs/git.md` |
-| `api`, `endpoint`, `rest`, `graphql`, `route`, `request`, `response` | `docs/api.md` |
-| `architecture`, `layer`, `boundary`, `module`, `service`, `data flow` | `docs/architecture.md` |
+| Keyword signals                                                              | Target file            |
+| ---------------------------------------------------------------------------- | ---------------------- |
+| `typescript`, `ts`, `const`, `let`, `interface`, `type`, `null`, `undefined` | `docs/typescript.md`   |
+| `test`, `vitest`, `jest`, `mock`, `fixture`, `spec`                          | `docs/testing.md`      |
+| `commit`, `branch`, `pr`, `pull request`, `merge`, `conventional`            | `docs/git.md`          |
+| `api`, `endpoint`, `rest`, `graphql`, `route`, `request`, `response`         | `docs/api.md`          |
+| `architecture`, `layer`, `boundary`, `module`, `service`, `data flow`        | `docs/architecture.md` |
 
 Lines that don't match any signal stay in the root only if they are one of the three essentials (project description, package manager, build/typecheck commands). Everything else gets dropped with a comment in `AGENTS.md.bak` so nothing is lost silently.
 
 ## Handling Contradictions
 
-If the existing `AGENTS.md` contains two rules that conflict (e.g., "use tabs" and "use 2-space indentation"), do NOT silently pick one. Instead:
+If the existing `AGENTS.md` contains two rules that conflict (e.g., "use tabs" and "use 2-space indentation"), do not silently pick one. Instead:
 
 1. Surface the contradiction to the user with both rules quoted.
 2. Ask which to keep.
-3. Drop the loser entirely; do not leave it commented out in a `/docs` file.
+3. Drop the loser entirely; do not leave it commented out in a `docs/` file.
 
 The audit script also flags suspected contradictions (heuristic: negation of another rule within the same domain file).
 
