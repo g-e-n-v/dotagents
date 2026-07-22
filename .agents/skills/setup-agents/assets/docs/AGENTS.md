@@ -1,8 +1,5 @@
 # AGENTS.md
 
-<!-- TODO: Replace with a one-sentence project description. Acts as a role prompt. -->
-<!-- Example: "React component library for accessible data visualization." -->
-
 ## Essentials
 
 <!-- TODO: Fill in only what is non-standard. Delete lines that don't apply. -->

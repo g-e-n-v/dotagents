@@ -36,8 +36,6 @@ The root file should stay under ~50 lines. It contains only the three essentials
 ```markdown
 # AGENTS.md
 
-<one-sentence project description, e.g. "React component library for accessible data visualization.">
-
 ## Essentials
 
 - Package manager: <pnpm|yarn|bun|npm> (or: "uses corepack")
@@ -158,12 +156,12 @@ Types: feat, fix, docs, refactor, test, chore, perf
 
 ## Shape
 
-<2-4 sentences on the overall shape: layers, boundaries, data flow.>
+<2-4 sentences on the overall technical shape: layers, boundaries, data flow.>
 
 ## Domains
 
-- <domain name>: <what it is responsible for, in capability terms>
-- <domain name>: <what it is responsible for>
+- <technical domain: what it is responsible for, in capability terms>
+- <technical domain: what it is responsible for>
 
 ## Boundaries
 

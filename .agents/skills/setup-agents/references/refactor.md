@@ -31,7 +31,7 @@ The `--refactor` flag classifies each line/block of the existing file by keyword
 | `api`, `endpoint`, `rest`, `graphql`, `route`, `request`, `response`         | `docs/api.md`          |
 | `architecture`, `layer`, `boundary`, `module`, `service`, `data flow`        | `docs/architecture.md` |
 
-Lines that don't match any signal stay in the root only if they are one of the three essentials (project description, package manager, build/typecheck commands). Everything else gets dropped with a comment in `AGENTS.md.bak` so nothing is lost silently.
+Lines that don't match any signal stay in the root only if they are one of the essentials (package manager, build/typecheck commands). Everything else gets dropped with a comment in `AGENTS.md.bak` so nothing is lost silently.
 
 ## Handling Contradictions
 
@@ -66,7 +66,6 @@ Follow these steps:
 1. **Find contradictions**: Identify any instructions that conflict with each other. For each contradiction, ask me which version I want to keep.
 
 2. **Identify the essentials**: Extract only what belongs in the root AGENTS.md:
-   - One-sentence project description
    - Package manager (if not npm)
    - Non-standard build/typecheck commands
    - Anything truly relevant to every single task
