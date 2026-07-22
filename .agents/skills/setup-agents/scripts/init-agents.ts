@@ -164,7 +164,7 @@ function scaffoldFresh(root: string): void {
   }
 
   console.log("\nNext steps:");
-  console.log("1. Edit AGENTS.md: fill in the one-sentence project description and essentials.");
+  console.log("1. Edit AGENTS.md: fill in the essentials (package manager, build/typecheck/test commands).");
   console.log("2. Edit each docs/*.md stub with real conventions. Delete stubs that do not apply.");
   console.log("3. Remove the matching link line from AGENTS.md for any deleted stub.");
   console.log("4. Run audit-agents.ts to verify the result.");
@@ -190,23 +190,13 @@ function scaffoldRefactor(root: string): void {
 
   const essentials: string[] = [];
   const unclassified: string[] = [];
-  let sawFirstHeading = false;
-  let descriptionCaptured = false;
-
   for (const rawLine of original.split("\n")) {
     const line = rawLine.trim();
     if (!line) continue;
     if (line.startsWith("<!--")) continue;
 
     if (line.startsWith("# ") && !line.startsWith("## ")) {
-      sawFirstHeading = true;
       essentials.push(rawLine);
-      continue;
-    }
-
-    if (sawFirstHeading && !descriptionCaptured && !line.startsWith("#") && !line.startsWith("-")) {
-      essentials.push(rawLine);
-      descriptionCaptured = true;
       continue;
     }
 
@@ -279,22 +269,8 @@ function buildRefactoredRoot(essentials: string[], unclassified: string[]): stri
   lines.push("# AGENTS.md");
   lines.push("");
 
-  const headingIdx = essentials.findIndex((l) => l.startsWith("# ") && !l.startsWith("# AGENTS"));
-  const headingText = headingIdx >= 0 ? essentials[headingIdx].replace(/^#\s+/, "").trim() : "";
-  const descriptionIdx = essentials.findIndex((l, i) => i !== headingIdx && !l.startsWith("#"));
-  if (descriptionIdx >= 0) {
-    lines.push(essentials[descriptionIdx].trim());
-  } else if (headingText) {
-    lines.push(headingText);
-  } else {
-    lines.push("<!-- TODO: one-sentence project description -->");
-  }
-  lines.push("");
-
   lines.push("## Essentials");
-  const essentialsBody = essentials.filter(
-    (l, i) => i !== headingIdx && i !== descriptionIdx && !l.startsWith("#"),
-  );
+  const essentialsBody = essentials.filter((l) => !l.startsWith("#"));
   if (essentialsBody.length === 0) {
     lines.push("- Package manager: <!-- pnpm | yarn | bun | npm | corepack -->");
     lines.push("- Build: <!-- command -->");

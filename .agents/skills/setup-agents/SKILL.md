@@ -13,7 +13,7 @@ Create or refactor a repository's AI agent instructions using **progressive disc
 
 ## Core Principles
 
-1. **Root `AGENTS.md` = minimum viable.** Only what is relevant to every single task in the repo: a one-sentence project description, package manager, and non-standard build/typecheck/test commands.
+1. **Root `AGENTS.md` = minimum viable.** Only what is relevant to every single task in the repo: package manager and non-standard build/typecheck/test commands.
 2. **`docs/*.md` = per-domain detail.** Each file covers one domain (TypeScript, testing, Git workflow, API design, architecture) and is referenced from the root via a domain-guidance table.
 3. **Describe capabilities, not file paths.** Paths drift; capabilities don't. Give shape and pointers, not a frozen map.
 4. **No auto-generated bloat.** Scaffolds produce structure, not content. The user fills in real conventions.
@@ -24,7 +24,6 @@ Create or refactor a repository's AI agent instructions using **progressive disc
 1. **Assess the repo.** Determine if this is a fresh setup or a refactor of an existing bloated `AGENTS.md`.
 2. **Run the scaffold script.** Execute `scripts/init-agents.ts` from the repo root. In default mode it creates a minimal `AGENTS.md` with TODO placeholders plus a `docs/` folder with stub files for the five common domains. With `--refactor` it reads an existing `AGENTS.md`, classifies lines by keyword into `docs/` stubs, backs up the original to `AGENTS.md.bak`, and rewrites the root with essentials plus links.
 3. **Fill in the root essentials.** Edit `AGENTS.md` to provide:
-   - One-sentence project description (role-prompt anchor)
    - Package manager (only if not npm; or note `corepack`)
    - Non-standard build/typecheck/test commands
 4. **Populate only the relevant `docs/` files.** Delete the stubs that don't apply and fill in the ones that do. Each `docs/*.md` is a progressive-disclosure target.
@@ -36,7 +35,6 @@ Use this decision table when filling in files:
 
 | Content                                                 | Location               |
 | ------------------------------------------------------- | ---------------------- |
-| One-sentence project purpose                            | Root `AGENTS.md`       |
 | Package manager (non-npm)                               | Root `AGENTS.md`       |
 | Non-standard build/typecheck/test commands              | Root `AGENTS.md`       |
 | TypeScript/JS conventions                               | `docs/typescript.md`   |

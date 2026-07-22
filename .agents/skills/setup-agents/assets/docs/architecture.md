@@ -4,12 +4,12 @@
 
 ## Shape
 
-<!-- 2-4 sentences on the overall shape: layers, boundaries, data flow. -->
+<!-- 2-4 sentences on the overall technical shape: layers, boundaries, data flow. -->
 
 ## Domains
 
-- <!-- domain name: what it is responsible for, in capability terms -->
-- <!-- domain name: what it is responsible for -->
+- <!-- technical domain: what it is responsible for, in capability terms -->
+- <!-- technical domain: what it is responsible for -->
 
 ## Boundaries
 
