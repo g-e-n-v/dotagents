@@ -1,15 +1,10 @@
-# Structure and Per-Domain Templates
+# Structure and Per-Domain Guidance
 
 ## Table of Contents
 
 - [Target File Tree](#target-file-tree)
 - [Root AGENTS.md Template](#root-agentsmd-template)
-- [Per-Domain docs/ Templates](#per-domain-docs-templates)
-  - [typescript.md](#typescriptmd)
-  - [testing.md](#testingmd)
-  - [git.md](#gitmd)
-  - [api.md](#apimd)
-  - [architecture.md](#architecturemd)
+- [Per-Domain docs/ Guidance](#per-domain-docs-guidance)
 - [Adding Custom Domains](#adding-custom-domains)
 - [Linking Rules](#linking-rules)
 - [Size Budgets](#size-budgets)
@@ -31,7 +26,7 @@ Keep references one level deep from `AGENTS.md`. Do not nest deeper (e.g., `docs
 
 ## Root AGENTS.md Template
 
-The root file should stay under ~50 lines. It contains only the three essentials plus pointer lines to `docs/`.
+The root file should stay under ~50 lines. It contains only the essentials plus a domain-guidance table pointing to `docs/`.
 
 ```markdown
 # AGENTS.md
@@ -45,132 +40,36 @@ The root file should stay under ~50 lines. It contains only the three essentials
 
 ## Domain Guidance
 
-- TypeScript conventions: see docs/typescript.md
-- Testing patterns: see docs/testing.md
-- Git workflow: see docs/git.md
-- API design: see docs/api.md
-- Architecture: see docs/architecture.md
+| Domain | Docs |
+| --- | --- |
+| TypeScript conventions | see docs/typescript.md |
+| Testing patterns | see docs/testing.md |
+| Git workflow | see docs/git.md |
+| API design | see docs/api.md |
+| Architecture | see docs/architecture.md |
 ```
 
 Notes:
 
-- Drop the "Domain Guidance" lines for stubs the user deleted.
+- Add or remove rows to match the `docs/` files in the repo.
 - Do not duplicate content from `docs/` in the root. Pointers only.
 - No "always" / all-caps forcing. Conversational references.
 
-## Per-Domain docs/ Templates
+## Per-Domain docs/ Guidance
 
-Each file is a progressive-disclosure target. The agent reads it only when working in that domain. Keep each file focused and under the size budget.
+Each `docs/*.md` file is a progressive-disclosure target. The agent reads it only when working in that domain. Keep each file focused and under the size budget.
 
-### typescript.md
+The scaffold script does not create domain stubs — create them manually for the domains that apply to the repo. Common domains:
 
-```markdown
-# TypeScript Conventions
+| Domain | Filename | Typical contents |
+| --- | --- | --- |
+| TypeScript/JS conventions | `docs/typescript.md` | Style preferences, patterns, anti-patterns |
+| Testing patterns | `docs/testing.md` | Framework, commands, conventions, fixtures |
+| Git workflow | `docs/git.md` | Commit format, branching, PR rules |
+| API design | `docs/api.md` | Conventions, validation, auth |
+| Architecture | `docs/architecture.md` | Shape, domains, boundaries, where to look |
 
-## Style
-
-- Prefer `const` over `let`; avoid `var`.
-- Prefer `interface` over `type` for object shapes.
-- Enable strict null checks.
-
-## Patterns
-
-<add project-specific patterns: error handling, naming, etc.>
-
-## Avoid
-
-<list anti-patterns observed in this repo>
-```
-
-### testing.md
-
-```markdown
-# Testing Patterns
-
-## Framework
-
-<e.g. "Vitest with jsdom environment">
-
-## Commands
-
-- Run all: `<command>`
-- Run one file: `<command>`
-- Watch: `<command>`
-
-## Conventions
-
-- Co-locate tests next to source as `*.test.ts`.
-- Name tests by behavior, not implementation.
-- Use real instances over mocks where feasible.
-
-## Fixtures
-
-<describe where shared fixtures live and how to load them>
-```
-
-### git.md
-
-```markdown
-# Git Workflow
-
-## Commits
-
-Conventional Commits format: `type(scope): description`
-
-Types: feat, fix, docs, refactor, test, chore, perf
-
-## Branching
-
-<describe branch naming and PR flow, or delete this section>
-
-## Rules
-
-- Squash merges on PR close.
-- Never commit generated files under <path>.
-```
-
-### api.md
-
-```markdown
-# API Design
-
-## Conventions
-
-- REST resources are plural nouns.
-- Errors use the shape: `{ "error": { "code", "message", "details" } }`.
-- Versioning via URL prefix: `/v1/...`.
-
-## Validation
-
-<describe where request/response schemas live and how they are validated>
-
-## Auth
-
-<describe at a capability level, e.g. "Bearer JWT validated in middleware"; avoid file paths>
-```
-
-### architecture.md
-
-```markdown
-# Architecture
-
-## Shape
-
-<2-4 sentences on the overall technical shape: layers, boundaries, data flow.>
-
-## Domains
-
-- <technical domain: what it is responsible for, in capability terms>
-- <technical domain: what it is responsible for>
-
-## Boundaries
-
-<what crosses what, and what must not. e.g. "The UI never touches the DB layer directly.">
-
-## Where to Look
-
-Hints, not paths. e.g. "Auth logic lives near the entry middleware" rather than "src/auth/middleware.ts".
-```
+When creating a domain file, give it a focused heading and fill in real conventions. Describe capabilities, not file paths. Paths drift; capabilities don't.
 
 ## Adding Custom Domains
 
@@ -186,8 +85,8 @@ The five default domains cover most projects, but add more when a distinct area 
 
 When adding a custom domain:
 
-1. Create `docs/<domain>.md` with a focused template.
-2. Add a link line under "Domain Guidance" in `AGENTS.md`.
+1. Create `docs/<domain>.md` with a focused heading and real conventions.
+2. Add a row to the Domain Guidance table in `AGENTS.md`.
 3. Run the audit script to verify the link resolves and no orphans exist.
 
 ## Linking Rules

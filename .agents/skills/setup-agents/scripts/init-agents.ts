@@ -153,21 +153,11 @@ function scaffoldFresh(root: string): void {
 
   const docsDir = path.join(root, "docs");
   ensureDir(docsDir);
-  for (const domain of DOC_DOMAINS) {
-    const dest = path.join(docsDir, `${domain}.md`);
-    if (fs.existsSync(dest)) {
-      logFinding({ kind: "skip", message: `docs/${domain}.md already exists, skipping` });
-      continue;
-    }
-    copyTemplate(dest, `${domain}.md`);
-    logFinding({ kind: "create", message: `Created docs/${domain}.md stub` });
-  }
 
   console.log("\nNext steps:");
   console.log("1. Edit AGENTS.md: fill in the essentials (package manager, build/typecheck/test commands).");
-  console.log("2. Edit each docs/*.md stub with real conventions. Delete stubs that do not apply.");
-  console.log("3. Remove the matching link line from AGENTS.md for any deleted stub.");
-  console.log("4. Run audit-agents.ts to verify the result.");
+  console.log("2. Create docs/*.md files for the domains that apply. Add a row to the Domain Guidance table for each.");
+  console.log("3. Run audit-agents.ts to verify the result.");
 }
 
 function scaffoldRefactor(root: string): void {
@@ -260,7 +250,7 @@ function scaffoldRefactor(root: string): void {
   console.log(
     "2. Resolve any contradictions surfaced by the refactor (see references/refactor.md).",
   );
-  console.log("3. Delete empty docs stubs and remove their link lines from AGENTS.md.");
+  console.log("3. Delete empty docs stubs and remove their rows from the Domain Guidance table.");
   console.log("4. Run audit-agents.ts to verify.");
 }
 
@@ -285,8 +275,11 @@ function buildRefactoredRoot(essentials: string[], unclassified: string[]): stri
   lines.push("");
 
   lines.push("## Domain Guidance");
+  lines.push("");
+  lines.push("| Domain | Docs |");
+  lines.push("| --- | --- |");
   for (const domain of DOC_DOMAINS) {
-    lines.push(`- ${DOMAIN_LABELS[domain]}: see docs/${domain}.md`);
+    lines.push(`| ${DOMAIN_LABELS[domain]} | see docs/${domain}.md |`);
   }
 
   if (unclassified.length > 0) {

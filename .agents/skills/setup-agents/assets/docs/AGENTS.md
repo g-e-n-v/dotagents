@@ -12,10 +12,12 @@
 ## Domain Guidance
 
 <!-- Each link is a progressive-disclosure target. The agent loads these only when working in that domain. -->
-<!-- Delete the lines for stubs you removed from docs/. -->
+<!-- Add or remove rows to match the docs/ files in this repo. -->
 
-- TypeScript conventions: see docs/typescript.md
-- Testing patterns: see docs/testing.md
-- Git workflow: see docs/git.md
-- API design: see docs/api.md
-- Architecture: see docs/architecture.md
+| Domain | Docs |
+| --- | --- |
+| TypeScript conventions | see docs/typescript.md |
+| Testing patterns | see docs/testing.md |
+| Git workflow | see docs/git.md |
+| API design | see docs/api.md |
+| Architecture | see docs/architecture.md |
